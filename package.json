@@ -1,0 +1,17 @@
+{
+  "name": "compass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compass.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
+}
