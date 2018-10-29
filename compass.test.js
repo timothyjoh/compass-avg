@@ -69,6 +69,7 @@ const compassAverages = [
   {test: [160,200], result: 180},
   {test: [90,270], result: 180},
   {test: [89,271], result: 0},
+  {test: [350,50], result: 20},
 ]
 
 describe('compassAverage', () => {
