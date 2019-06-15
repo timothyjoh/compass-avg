@@ -1,81 +1,65 @@
-import { average, max, min, difference, compassAverage } from 'compass';
+import { average, reverse, difference, compassAverage, reverseHeading } from 'compass';
 
-const averages = [
-  {test: [1,2], result: 1.5},
-  {test: [100,200], result: 150},
-  {test: [350,0], result: 175},
+const simple_average_fixture = [
+  {coord: [1,2], expected: 1.5},
+  {coord: [100,200], expected: 150},
+  {coord: [350,0], expected: 175},
 ];
 
-describe('average', () => {
-  averages.forEach((p) => {
-    it(`should find average of ${p.test}`, () => {
-      expect(average(p.test[0], p.test[1])).toBe(p.result);
-    });
+simple_average_fixture.forEach((p) => {
+  test(`should find average of ${p.coord}`, () => {
+    expect(average(p.coord)).toBe(p.expected);
   });
 });
 
-const maxes = [
-  {test: [1,2], result: 2},
-  {test: [350,0], result: 350},
-  {test: [0,20], result: 20},
-  {test: [5,5], result: 5},
-];
-
-describe('max', () => {
-  maxes.forEach((p) => {
-    it(`should find maximum of ${p.test}`, () => {
-      expect(max(p.test[0], p.test[1])).toBe(p.result);
-    });
-  });
-});
-
-const minims = [
-  {test: [1,2], result: 1},
-  {test: [350,0], result: 0},
-  {test: [0,20], result: 0},
-  {test: [5,5], result: 5},
+const reverse_fixture = [
+  {coord: [1,2], expected: false},
+  {coord: [350,0], expected: true},
+  {coord: [1,21], expected: false},
+  {coord: [355,5], expected: true},
+  {coord: [290,20], expected: true},
+  {coord: [160,200], expected: false},
+  {coord: [90,270], expected: false},
+  {coord: [89,271], expected: true},
+  {coord: [350,50], expected: true},
+  {coord: [240,240], expected: false},
 ]
 
-describe('minimums', () => {
-  minims.forEach((p) => {
-    it(`should find minimum of ${p.test}`, () => {
-      expect(min(p.test[0], p.test[1])).toBe(p.result);
-    });
+reverse_fixture.forEach((p) => {
+  test(`should reverse the angle of ${p.coord}`, () => {
+    expect(reverseHeading(p.coord)).toBe(p.expected);
   });
 });
 
-const differences = [
-  {test: [1,2], result: 1},
-  {test: [350,0], result: 350},
-  {test: [1,20], result: 19},
-  {test: [5,5], result: 0},
-  {test: [190,360], result: 170},
+const difference_fixture = [
+  {coord: [1,2], expected: 1},
+  {coord: [350,0], expected: 350},
+  {coord: [1,20], expected: 19},
+  {coord: [5,5], expected: 0},
+  {coord: [190,360], expected: 170},
 ]
 
-describe('difference', () => {
-  differences.forEach((p) => {
-    it(`should find difference of ${p.test}`, () => {
-      expect(difference(p.test[0], p.test[1])).toBe(p.result);
-    });
+difference_fixture.forEach((p) => {
+  test(`should find difference of ${p.coord}`, () => {
+    expect(difference(p.coord)).toBe(p.expected);
   });
 });
 
-const compassAverages = [
-  {test: [1,2], result: 1.5},
-  {test: [350,0], result: 355},
-  {test: [1,21], result: 11},
-  {test: [355,5], result: 0},
-  {test: [290,20], result: 335},
-  {test: [160,200], result: 180},
-  {test: [90,270], result: 180},
-  {test: [89,271], result: 0},
-  {test: [350,50], result: 20},
+const compass_average_fixture = [
+  {coord: [1,2], expected: 1.5},
+  {coord: [350,0], expected: 355},
+  {coord: [1,21], expected: 11},
+  {coord: [355,5], expected: 0},
+  {coord: [290,20], expected: 335},
+  {coord: [160,200], expected: 180},
+  {coord: [90,270], expected: 180},
+  {coord: [89,271], expected: 0},
+  {coord: [350,50], expected: 20},
+  {coord: [240,240], expected: 240},
 ]
 
-describe('compassAverage', () => {
-  compassAverages.forEach((p) => {
-    it(`should find a compass average of ${p.test}`, () => {
-      expect(compassAverage(p.test[0], p.test[1])).toBe(p.result);
-    });
+compass_average_fixture.forEach((p) => {
+  test(`should find a compass average of ${p.coord}`, () => {
+    expect(compassAverage(p.coord)).toBe(p.expected);
   });
 });

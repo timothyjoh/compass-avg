@@ -4,10 +4,14 @@
   "description": "",
   "main": "compass.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "author": "",
   "license": "ISC",
+  "jest": {
+    "verbose": false,
+    "notify": true
+  },
   "devDependencies": {
     "jest": "^23.6.0"
   },
