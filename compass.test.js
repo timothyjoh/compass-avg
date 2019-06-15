@@ -1,65 +1,62 @@
-import { average, reverse, difference, compassAverage, reverseHeading } from 'compass';
+import { average, difference, compassAverage, reverseHeading } from 'compass';
 
-const simple_average_fixture = [
-  {coord: [1,2], expected: 1.5},
-  {coord: [100,200], expected: 150},
-  {coord: [350,0], expected: 175},
-];
+// inspired by jest-in-case, but who needs another library?
+const cases = (desc, fn, data) => data.forEach(i => {
+  test(`${desc} ${i.input || ''}`, fn(i))
+})
 
-simple_average_fixture.forEach((p) => {
-  test(`should find average of ${p.coord}`, () => {
-    expect(average(p.coord)).toBe(p.expected);
-  });
-});
+cases(`should find simple averages of`, p => () => {
+  expect(average(p.input)).toBe(p.expected);
+},
+  [
+    { input: [1, 2], expected: 1.5 },
+    { input: [100, 200], expected: 150 },
+    { input: [350, 0], expected: 175 },
+  ]
+);
 
-const reverse_fixture = [
-  {coord: [1,2], expected: false},
-  {coord: [350,0], expected: true},
-  {coord: [1,21], expected: false},
-  {coord: [355,5], expected: true},
-  {coord: [290,20], expected: true},
-  {coord: [160,200], expected: false},
-  {coord: [90,270], expected: false},
-  {coord: [89,271], expected: true},
-  {coord: [350,50], expected: true},
-  {coord: [240,240], expected: false},
-]
+cases(`should reverse the angle of`, p => () => {
+  expect(reverseHeading(p.input)).toBe(p.expected);
+},
+  [
+    { input: [1, 2], expected: false },
+    { input: [350, 0], expected: true },
+    { input: [1, 21], expected: false },
+    { input: [355, 5], expected: true },
+    { input: [290, 20], expected: true },
+    { input: [160, 200], expected: false },
+    { input: [90, 270], expected: false },
+    { input: [89, 271], expected: true },
+    { input: [350, 50], expected: true },
+    { input: [240, 240], expected: false },
+  ]
+);
 
-reverse_fixture.forEach((p) => {
-  test(`should reverse the angle of ${p.coord}`, () => {
-    expect(reverseHeading(p.coord)).toBe(p.expected);
-  });
-});
+cases(`should find difference of`, p => () => {
+  expect(difference(p.input)).toBe(p.expected);
+},
+  [
+    { input: [1, 2], expected: 1 },
+    { input: [350, 0], expected: 350 },
+    { input: [1, 20], expected: 19 },
+    { input: [5, 5], expected: 0 },
+    { input: [190, 360], expected: 170 },
+  ]
+);
 
-const difference_fixture = [
-  {coord: [1,2], expected: 1},
-  {coord: [350,0], expected: 350},
-  {coord: [1,20], expected: 19},
-  {coord: [5,5], expected: 0},
-  {coord: [190,360], expected: 170},
-]
-
-difference_fixture.forEach((p) => {
-  test(`should find difference of ${p.coord}`, () => {
-    expect(difference(p.coord)).toBe(p.expected);
-  });
-});
-
-const compass_average_fixture = [
-  {coord: [1,2], expected: 1.5},
-  {coord: [350,0], expected: 355},
-  {coord: [1,21], expected: 11},
-  {coord: [355,5], expected: 0},
-  {coord: [290,20], expected: 335},
-  {coord: [160,200], expected: 180},
-  {coord: [90,270], expected: 180},
-  {coord: [89,271], expected: 0},
-  {coord: [350,50], expected: 20},
-  {coord: [240,240], expected: 240},
-]
-
-compass_average_fixture.forEach((p) => {
-  test(`should find a compass average of ${p.coord}`, () => {
-    expect(compassAverage(p.coord)).toBe(p.expected);
-  });
-});
+cases(`should find a compass average of`, p => () => {
+  expect(compassAverage(p.input)).toBe(p.expected);
+},
+  [
+    { input: [1, 2], expected: 1.5 },
+    { input: [350, 0], expected: 355 },
+    { input: [1, 21], expected: 11 },
+    { input: [355, 5], expected: 0 },
+    { input: [290, 20], expected: 335 },
+    { input: [160, 200], expected: 180 },
+    { input: [90, 270], expected: 180 },
+    { input: [89, 271], expected: 0 },
+    { input: [350, 50], expected: 20 },
+    { input: [240, 240], expected: 240 },
+  ]
+);
