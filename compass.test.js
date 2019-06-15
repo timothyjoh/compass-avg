@@ -1,12 +1,9 @@
 import { average, difference, compassAverage, reverseHeading } from 'compass';
+import { cases, testCases } from './lib/test-helper'
+import { log } from './lib/log'
 
-// inspired by jest-in-case, but who needs another library?
-const cases = (desc, fn, data) => data.forEach(i => {
-  test(`${desc} ${i.input || ''}`, fn(i))
-})
-
-cases(`should find simple averages of`, p => () => {
-  expect(average(p.input)).toBe(p.expected);
+cases(`should find simple averages of`, d => () => {
+  expect(average(d.input)).toBe(d.expected);
 },
   [
     { input: [1, 2], expected: 1.5 },
@@ -15,8 +12,22 @@ cases(`should find simple averages of`, p => () => {
   ]
 );
 
-cases(`should reverse the angle of`, p => () => {
-  expect(reverseHeading(p.input)).toBe(p.expected);
+const simpleAverages = ({input, expected}) => ({
+  desc: `should find simple averages of ${input}`,
+  tests: () => expect(average(input)).toEqual(expected)
+})
+
+testCases(simpleAverages)
+.with([
+    { input: [33,53], expected: 43 },
+    { input: [1, 2], expected: 1.5 },
+    { input: [100, 200], expected: 150 },
+    { input: [350, 0], expected: 175 },
+  ])
+
+
+cases(`should reverse the angle of`, d => () => {
+  expect(reverseHeading(d.input)).toBe(d.expected);
 },
   [
     { input: [1, 2], expected: false },
@@ -32,8 +43,8 @@ cases(`should reverse the angle of`, p => () => {
   ]
 );
 
-cases(`should find difference of`, p => () => {
-  expect(difference(p.input)).toBe(p.expected);
+cases(`should find difference of`, d => () => {
+  expect(difference(d.input)).toBe(d.expected);
 },
   [
     { input: [1, 2], expected: 1 },
@@ -44,8 +55,8 @@ cases(`should find difference of`, p => () => {
   ]
 );
 
-cases(`should find a compass average of`, p => () => {
-  expect(compassAverage(p.input)).toBe(p.expected);
+cases(`should find a compass average of`, d => () => {
+  expect(compassAverage(d.input)).toBe(d.expected);
 },
   [
     { input: [1, 2], expected: 1.5 },
